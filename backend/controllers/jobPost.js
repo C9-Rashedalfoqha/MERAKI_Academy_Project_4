@@ -62,5 +62,37 @@ const getJobById = (req, res) => {
       });
     });
 };
-
+const updateJob = (req, res) => {
+  const { id } = req.params;
+  const { filterTitle, title, jobAddress, description, salary, photo } =
+    req.body;
+  jobModel
+    .findOneAndUpdate(
+      { _id: id },
+      filterTitle,
+      title,
+      jobAddress,
+      description,
+      salary,
+      photo
+    )
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          message: `job with id => ${id} not found`,
+        });
+      }
+      res.status(202).json({
+        success: true,
+        message: "updated job",
+        job: result,
+      });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ success: false, message: `Server Error`, err: err.message });
+    });
+};
 module.exports = { createPostJob, getAllJob, getJobById, updateJob };
