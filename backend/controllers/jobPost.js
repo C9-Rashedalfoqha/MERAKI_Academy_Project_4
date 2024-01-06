@@ -11,6 +11,7 @@ const createPostJob = (req, res) => {
     salary,
     photo,
     userId,
+    comment,
   });
   newJob
     .save()
@@ -32,6 +33,7 @@ const getAllJob = (req, res) => {
   jobModel
     .find()
     .populate("userId", "Email")
+    .populate("comment")
     .then((result) => {
       res.status(200).json({
         message: "All the post",
@@ -41,13 +43,12 @@ const getAllJob = (req, res) => {
     .catch((err) => {
       res.status(404).json({
         success: false,
-        message: Err,
+        message: err.message,
       });
     });
 };
 const getJobById = (req, res) => {
-  const { id } = req.token;
- 
+  const id = req.token;
 
   jobModel
     .findById({ _id: id })
@@ -122,4 +123,5 @@ const deleteJob = (req, res) => {
       });
     });
 };
+
 module.exports = { createPostJob, getAllJob, getJobById, updateJob, deleteJob };

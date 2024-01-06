@@ -10,6 +10,7 @@ const register = (req, res) => {
     phoneNumber,
     Experience,
     Skills,
+    role,
   } = req.body;
   const newUser = new usersModel({
     FirstName,
@@ -19,7 +20,7 @@ const register = (req, res) => {
     phoneNumber,
     Experience,
     Skills,
-    role: "65997cde0c22c72b02ed5d26",
+    role,
   });
   newUser
     .save()
@@ -42,7 +43,8 @@ const login = (req, res) => {
   const { Email, password } = req.body;
   usersModel
     .findOne({ Email })
-
+    .populate("role")
+    .exec()
     .then((result) => {
       if (!result) {
         res.status(403).json({
@@ -50,30 +52,35 @@ const login = (req, res) => {
           message:
             "The email doesn't exist or The password you’ve entered is incorrect`",
         });
-      }
-      bcrypt.compare(password, result.password).then((result) => {
-        if (!result) {
-          return res.status(403).json({
-            success: false,
-            message:
-              "The email doesn't exist or The password you’ve entered is incorrect`",
-          });
-        }
-        const payload = {
-          userId: result._id,
-          FirstName: result.FirstName,
-          role: result.role,
-        };
-        const options = {
-          expiresIn: "7d",
-        };
-        const token = jwt.sign(payload, process.env.SECRET, options);
-        res.status(200).json({
-          success: true,
-          message: `Valid login credentials`,
-          token: token,
+      } else {
+        console.log(result);
+        // console.log(result);
+        bcrypt.compare(password, result.password).then((info) => {
+          if (!info) {
+            return res.status(403).json({
+              success: false,
+              message:
+                "The email doesn't exist or The password you’ve entered is incorrect`",
+            });
+          } else {
+            const payload = {
+              userId: result._id,
+              FirstName: result.FirstName,
+              role: result.role,
+            };
+            console.log(payload);
+            const options = {
+              expiresIn: "7d",
+            };
+            const token = jwt.sign(payload, process.env.SECRET, options);
+            res.status(200).json({
+              success: true,
+              message: `Valid login credentials`,
+              token: token,
+            });
+          }
         });
-      });
+      }
     })
     .catch((err) => {
       res.status(500).json({
