@@ -1,7 +1,8 @@
 const jobModel = require("../models/jobSchema");
 const createPostJob = (req, res) => {
-  const { filterTitle, title, jobAddress, description, salary, photo, userId } =
+  const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
+  const { userId } = req.token;
   const newJob = new jobModel({
     filterTitle,
     title,

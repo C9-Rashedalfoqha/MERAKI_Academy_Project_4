@@ -6,8 +6,9 @@ const {
   updateJob,
   deleteJob,
 } = require("../controllers/jobPost");
+const authentication=require("../middleware/authentication")
 const jobRouter = express.Router();
-jobRouter.post("/", createPostJob);
+jobRouter.post("/", authentication, createPostJob);
 jobRouter.get("/", getAllJob);
 jobRouter.get("/:id", getJobById);
 jobRouter.put("/update/:id", updateJob);
