@@ -67,7 +67,7 @@ const updateJob = (req, res) => {
   const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
   jobModel
-    .findOneAndUpdate(
+    .findByIdAndUpdate(
       { _id: id },
       filterTitle,
       title,
@@ -95,4 +95,28 @@ const updateJob = (req, res) => {
         .json({ success: false, message: `Server Error`, err: err.message });
     });
 };
-module.exports = { createPostJob, getAllJob, getJobById, updateJob };
+const deleteJob = (req, res) => {
+  const { id } = req.params;
+  jobModel
+    .findByIdAndDelete({ _id: id })
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          message: `job with id => ${id} not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `job deleted`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+module.exports = { createPostJob, getAllJob, getJobById, updateJob, deleteJob };
