@@ -11,7 +11,6 @@ const createPostJob = (req, res) => {
     salary,
     photo,
     userId,
-    comment,
   });
   newJob
     .save()
@@ -35,10 +34,17 @@ const getAllJob = (req, res) => {
     .populate("userId", "Email")
     .populate("comment")
     .then((result) => {
-      res.status(200).json({
-        message: "All the post",
-        posts: result,
-      });
+      if (result.length - 1 < 0) {
+        res.status(404).json({
+          success: false,
+          message: "not found jobs ",
+        });
+      } else if (result.length >= 0) {
+        res.status(200).json({
+          message: "All the post",
+          posts: result,
+        });
+      }
     })
     .catch((err) => {
       res.status(404).json({
@@ -48,38 +54,38 @@ const getAllJob = (req, res) => {
     });
 };
 const getJobById = (req, res) => {
-  const id = req.token;
-
+  const userId = req.token.userId;
   jobModel
-    .findById({ _id: id })
+    .find({ userId: userId })
     .then((result) => {
-      res.status(200).json({
-        success: true,
-        message: "All the post for userId",
-        job: result,
-      });
+      console.log(result);
+      if (!result.length) {
+        res.status(404).json({
+          success: false,
+          message: "there is no posts",
+        });
+      } else if (result.length) {
+        res.status(200).json({
+          success: true,
+          message: `All the post for userId`,
+          job: result,
+        });
+      }
     })
     .catch((err) => {
-      res.status(404).json({
+      res.status(500).json({
         success: false,
-        message: err,
+        message: err.message,
       });
     });
 };
 const updateJob = (req, res) => {
-  const { id } = req.params;
+  const userId = req.token.userId;
   const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
+  const update = { filterTitle, title, jobAddress, description, salary, photo };
   jobModel
-    .findOneAndUpdate(
-      { _id: id },
-      filterTitle,
-      title,
-      jobAddress,
-      description,
-      salary,
-      photo
-    )
+    .findOneAndUpdate({ userId: userId }, update, { new: true })
     .then((result) => {
       if (!result) {
         res.status(404).json({
@@ -90,7 +96,7 @@ const updateJob = (req, res) => {
       res.status(202).json({
         success: true,
         message: "updated job",
-        job: result,
+        result: result,
       });
     })
     .catch((err) => {

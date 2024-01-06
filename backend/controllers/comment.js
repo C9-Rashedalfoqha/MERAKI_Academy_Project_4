@@ -12,7 +12,12 @@ const createNewComment = (req, res) => {
     .save()
     .then((result) => {
       jobModel
-        .findByIdAndUpdate({ _id: id }, { $push: { comment: result._id } })
+        .findByIdAndUpdate(
+          { _id: id },
+          { $push: { comment: result._id } },
+          { new: true }
+        )
+
         .then((result) => {
           res.status(201).json({
             success: true,
