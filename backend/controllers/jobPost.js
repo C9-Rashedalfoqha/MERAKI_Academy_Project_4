@@ -46,7 +46,9 @@ const getAllJob = (req, res) => {
     });
 };
 const getJobById = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.token;
+ 
+
   jobModel
     .findById({ _id: id })
     .then((result) => {
@@ -68,7 +70,7 @@ const updateJob = (req, res) => {
   const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
   jobModel
-    .findByIdAndUpdate(
+    .findOneAndUpdate(
       { _id: id },
       filterTitle,
       title,
