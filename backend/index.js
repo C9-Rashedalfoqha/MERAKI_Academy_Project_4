@@ -8,8 +8,10 @@ app.use(cors());
 app.use(express.json());
 const userRouter = require("./routes/users");
 const jobRouter = require("./routes/jobPost");
+const roleRouter = require("./routes/role");
 app.use("/register", userRouter);
 app.use("/job", jobRouter);
+app.use("/role", roleRouter);
 // Handles any other endpoints [unassigned - endpoints]
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 
