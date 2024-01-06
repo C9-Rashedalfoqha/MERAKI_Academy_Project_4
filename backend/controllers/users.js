@@ -19,9 +19,11 @@ const register = (req, res) => {
     phoneNumber,
     Experience,
     Skills,
+    role: "65997cde0c22c72b02ed5d26",
   });
   newUser
     .save()
+
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -39,7 +41,8 @@ const register = (req, res) => {
 const login = (req, res) => {
   const { Email, password } = req.body;
   usersModel
-    .findOne({ Email})
+    .findOne({ Email })
+
     .then((result) => {
       if (!result) {
         res.status(403).json({
