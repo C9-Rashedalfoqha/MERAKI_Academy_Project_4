@@ -44,6 +44,23 @@ const getAllJob = (req, res) => {
       });
     });
 };
-
+const getJobById = (req, res) => {
+  const { id } = req.params;
+  jobModel
+    .findById({ _id: id })
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "All the post for userId",
+        job: result,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        success: false,
+        message: err,
+      });
+    });
+};
 
 module.exports = { createPostJob, getAllJob, getJobById, updateJob };
