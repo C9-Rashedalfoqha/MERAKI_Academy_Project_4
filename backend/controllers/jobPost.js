@@ -27,5 +27,23 @@ const createPostJob = (req, res) => {
       });
     });
 };
+const getAllJob = (req, res) => {
+  jobModel
+    .find()
+    .populate("userId", "Email")
+    .then((result) => {
+      res.status(200).json({
+        message: "All the post",
+        posts: result,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        success: false,
+        message: Err,
+      });
+    });
+};
+
 
 module.exports = { createPostJob, getAllJob, getJobById, updateJob };
