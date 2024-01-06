@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
   Skills: { type: String },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
 });
-// userSchema.pre("save", async function () {
-//   this.email = this.email.toLowerCase();
-//   this.password = await bcrypt.hash(this.password, 10);
-// });
+userSchema.pre("save", async function () {
+  this.Email = this.Email.toLowerCase();
+  this.password = await bcrypt.hash(this.password, 7);
+});
 module.exports = mongoose.model("User", userSchema);
