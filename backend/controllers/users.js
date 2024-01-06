@@ -36,7 +36,21 @@ const register = (req, res) => {
       });
     });
 };
-
+const login = (req, res) => {
+  const { Email, password } = req.body;
+  usersModel
+    .findOne({ Email, password })
+    .then((result) => {
+      res
+        .status(201)
+        .json({ success: true, message: "Valid login credentials" });
+    })
+    .catch((err) => {
+      res
+        .status(401)
+        .json({ success: false, message: "Invalid login credentials" });
+    });
+};
 module.exports = {
   register,
   login,
