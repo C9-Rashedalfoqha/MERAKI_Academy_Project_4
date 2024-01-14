@@ -183,7 +183,30 @@ const getAllPost = (req, res) => {
     });
 };
 const updatePost = (req, res) => {
-  
+  const userId = req.token.userId;
+  const { id } = req.params;
+  const { description, photo } = req.body;
+  const update = { description, photo };
+  jobModel
+    .findOneAndUpdate({ _id: id }, update, { new: true })
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          message: `job with id => ${id} not found`,
+        });
+      }
+      res.status(202).json({
+        success: true,
+        message: "updated job",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ success: false, message: `Server Error`, err: err.message });
+    });
 };
 module.exports = {
   createPostJob,
