@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const jobSchema = new mongoose.Schema({
-  filter: { type: String },
+  filterTitle: { type: String },
   title: { type: String },
   jobAddress: { type: String },
   description: { type: String },

@@ -18,11 +18,7 @@ jobRouter.post(
 );
 jobRouter.get("/", getAllJob);
 jobRouter.get("/com", authentication, getJobById);
-jobRouter.put("/update", authentication, updateJob);
-jobRouter.delete("/delete/:id", deleteJob);
-jobRouter.post(
-  "/:id/comment",
-
-  createNewComment
-);
+jobRouter.put("/update/:id", authentication, updateJob);
+jobRouter.delete("/delete/:id", authentication, deleteJob);
+jobRouter.post("/:id/comments/", authentication,createNewComment);
 module.exports = jobRouter;

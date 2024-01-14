@@ -3,7 +3,7 @@ const jobModel = require("../models/jobSchema");
 const createNewComment = (req, res) => {
   const { id } = req.params;
   const { comment } = req.body;
-  const commenter = req.token;
+  const commenter = req.token.commenter;
   const newComment = new commentModel({
     comment,
     commenter,

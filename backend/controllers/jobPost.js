@@ -31,8 +31,9 @@ const createPostJob = (req, res) => {
 const getAllJob = (req, res) => {
   jobModel
     .find()
-    .populate("userId", "Email")
+    .populate("userId")
     .populate("comment")
+    .exec()
     .then((result) => {
       if (result.length - 1 < 0) {
         res.status(404).json({
@@ -81,11 +82,12 @@ const getJobById = (req, res) => {
 };
 const updateJob = (req, res) => {
   const userId = req.token.userId;
+  const { id } = req.params;
   const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
   const update = { filterTitle, title, jobAddress, description, salary, photo };
   jobModel
-    .findOneAndUpdate({ userId: userId }, update, { new: true })
+    .findOneAndUpdate({ _id: id }, update, { new: true })
     .then((result) => {
       if (!result) {
         res.status(404).json({

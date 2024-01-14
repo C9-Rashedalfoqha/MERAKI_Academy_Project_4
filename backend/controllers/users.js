@@ -20,7 +20,7 @@ const register = (req, res) => {
     phoneNumber,
     Experience,
     Skills,
-    role,
+    role: "65997cde0c22c72b02ed5d26",
   });
   newUser
     .save()
@@ -77,6 +77,8 @@ const login = (req, res) => {
               success: true,
               message: `Valid login credentials`,
               token: token,
+              userId: result._id,
+              user:result
             });
           }
         });
@@ -90,7 +92,45 @@ const login = (req, res) => {
       });
     });
 };
+const getUserById = (req, res) => {
+  const id = req.params.id;
+  usersModel
+    .findById({ _id: id })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        success: false,
+        message: err.message,
+      });
+    });
+};
+const getUsers = (req, res) => {
+  const Id = req.token.Id;
+  usersModel
+    .find({ Id })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        success: false,
+        message: err.message,
+      });
+    });
+};
 module.exports = {
   register,
   login,
+  getUserById,
+  getUsers,
 };
