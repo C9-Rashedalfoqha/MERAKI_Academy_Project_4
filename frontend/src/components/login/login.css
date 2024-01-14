@@ -1,0 +1,35 @@
+.login {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .login form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login form label {
+    margin-bottom: 8px;
+  }
+  
+  .login form input {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .login .google {
+    margin-bottom: 15px;
+  }
+  
+  .login a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .login a:hover {
+    text-decoration: underline;
+  }
