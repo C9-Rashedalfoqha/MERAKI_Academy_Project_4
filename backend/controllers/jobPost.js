@@ -132,5 +132,28 @@ const deleteJob = (req, res) => {
       });
     });
 };
-
+const createPost = (req, res) => {
+  const { id } = req.token;
+  const { description, photo, userId } = req.body;
+  const newPost = new postModel({
+    description,
+    photo,
+    userId,
+  });
+  newPost
+    .save()
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `post Created Successfully`,
+        post: result,
+      });
+    })
+    .catch((err) => {
+      res.status(409).json({
+        success: false,
+        message: err,
+      });
+    });
+};
 module.exports = { createPostJob, getAllJob, getJobById, updateJob, deleteJob };
