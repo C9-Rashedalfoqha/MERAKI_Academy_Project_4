@@ -193,12 +193,12 @@ const updatePost = (req, res) => {
       if (!result) {
         res.status(404).json({
           success: false,
-          message: `job with id => ${id} not found`,
+          message: `post with id => ${id} not found`,
         });
       }
       res.status(202).json({
         success: true,
-        message: "updated job",
+        message: "updated post",
         result: result,
       });
     })
@@ -208,6 +208,30 @@ const updatePost = (req, res) => {
         .json({ success: false, message: `Server Error`, err: err.message });
     });
 };
+const deletePost = (req, res) => {
+  const { id } = req.params;
+  jobModel
+    .findByIdAndDelete({ _id: id })
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          message: `post with id => ${id} not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `post deleted`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createPostJob,
   getAllJob,
@@ -215,4 +239,6 @@ module.exports = {
   updateJob,
   deleteJob,
   createPost,
+  getAllPost,
+  updatePost,
 };
