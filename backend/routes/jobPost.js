@@ -8,6 +8,8 @@ const {
   deleteJob,
   createPost,
   getAllPost,
+  updatePost,
+  deletePost,
 } = require("../controllers/jobPost");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
@@ -30,4 +32,6 @@ jobRouter.get(
   authorization("CREATE_POST"),
   getAllPost
 );
+jobRouter.put("/post/update/:id", updatePost);
+jobRouter.delete("/post/delete/:id", deletePost);
 module.exports = jobRouter;

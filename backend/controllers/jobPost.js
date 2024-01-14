@@ -183,11 +183,10 @@ const getAllPost = (req, res) => {
     });
 };
 const updatePost = (req, res) => {
-  const userId = req.token.userId;
   const { id } = req.params;
   const { description, photo } = req.body;
   const update = { description, photo };
-  jobModel
+  postModel
     .findOneAndUpdate({ _id: id }, update, { new: true })
     .then((result) => {
       if (!result) {
@@ -210,7 +209,7 @@ const updatePost = (req, res) => {
 };
 const deletePost = (req, res) => {
   const { id } = req.params;
-  jobModel
+  postModel
     .findByIdAndDelete({ _id: id })
     .then((result) => {
       if (!result) {
@@ -241,4 +240,5 @@ module.exports = {
   createPost,
   getAllPost,
   updatePost,
+  deletePost,
 };
