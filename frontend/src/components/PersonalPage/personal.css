@@ -1,0 +1,21 @@
+.parent-per {
+  display: inline-block;
+  border: 2px solid gray;
+  width: 350px;
+  height: 400px;
+  position: absolute;
+  top: 20%;
+  left: 3%;
+}
+.per {
+  border: 1px solid gold;
+  width: 300px;
+  margin: 10px;
+}
+.per-label {
+  display: inline;
+  margin: 10px;
+  text-decoration: double;
+  font-family: "Courier New", Courier, monospace;
+  font-size: larger;
+}

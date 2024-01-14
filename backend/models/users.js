@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
-  FirstName: { type: String },
-  lastName: { type: String },
+  photo: { type: String },
+  FirstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   Email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  phoneNumber: { type: Number },
-  Experience: { type: String },
+  phoneNumber: { type: Number, required: true },
+  Experience: { type: String, required: true },
   Skills: { type: String },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
 });

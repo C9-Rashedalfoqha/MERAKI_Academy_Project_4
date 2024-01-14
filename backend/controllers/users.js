@@ -11,6 +11,7 @@ const register = (req, res) => {
     Experience,
     Skills,
     role,
+    photo,
   } = req.body;
   const newUser = new usersModel({
     FirstName,
@@ -21,6 +22,7 @@ const register = (req, res) => {
     Experience,
     Skills,
     role: "65997cde0c22c72b02ed5d26",
+    photo,
   });
   newUser
     .save()
@@ -78,7 +80,7 @@ const login = (req, res) => {
               message: `Valid login credentials`,
               token: token,
               userId: result._id,
-              user:result
+              user: result,
             });
           }
         });
@@ -128,9 +130,55 @@ const getUsers = (req, res) => {
       });
     });
 };
+const updateUser = (req, res) => {
+  const { id } = req.params;
+  const userId = req.token.userId;
+  const { FirstName, lastName, Email, phoneNumber, Experience, Skills, photo } =
+    req.body;
+  const update = {
+    FirstName,
+    lastName,
+    Email,
+    phoneNumber,
+    Experience,
+    Skills,
+    photo,
+  };
+  if (userId !== id) {
+    return res.status(403).json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+  usersModel
+    .findOneAndUpdate({ _id: id }, update, { new: true })
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+
+      res.status(202).json({
+        success: true,
+        message: "Updated user successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+
 module.exports = {
   register,
   login,
   getUserById,
   getUsers,
+  updateUser,
 };

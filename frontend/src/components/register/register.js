@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../register/register.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { userContext } from "../../App";
 
 const Register = () => {
   const navigate = useNavigate();
-
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [experience, setExperience] = useState("");
-  const [skill, setSkill] = useState("");
+  const {  first,
+          setFirst,
+          last,
+          setLast,
+          email,
+          setEmail,
+          password,
+          setPassword,
+          phoneNumber,
+          setPhoneNumber,
+          experience,
+          setExperience,
+          skill,
+          setSkill,} = useContext(userContext);
 
   return (
     <div className="register">

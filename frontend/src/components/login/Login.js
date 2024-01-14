@@ -36,6 +36,7 @@ const Login = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          required
         />
       </Form.Group>
       <br />
@@ -47,6 +48,7 @@ const Login = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          required
         />
       </Form.Group>
       <GoogleOAuthProvider

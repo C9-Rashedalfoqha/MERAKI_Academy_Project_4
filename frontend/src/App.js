@@ -13,13 +13,6 @@ import Personal from "./components/PersonalPage/Personal";
 import Filter from "./components/filter/Filter";
 export const userContext = createContext();
 function App() {
-  const [filter, setFilter] = useState("");
-  const [job, setJob] = useState("");
-  const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
-  const [salary, setSalary] = useState("");
-  const [image, setImage] = useState(null);
-  const [url, setUrl] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
@@ -32,6 +25,20 @@ function App() {
       return {};
     }
   });
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [experience, setExperience] = useState("");
+  const [skill, setSkill] = useState("");
+  const [filter, setFilter] = useState("");
+  const [job, setJob] = useState("");
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
+  const [salary, setSalary] = useState("");
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
 
   const logout = () => {
     setToken(null);
@@ -65,6 +72,20 @@ function App() {
           setImage,
           url,
           setUrl,
+          first,
+          setFirst,
+          last,
+          setLast,
+          email,
+          setEmail,
+          password,
+          setPassword,
+          phoneNumber,
+          setPhoneNumber,
+          experience,
+          setExperience,
+          skill,
+          setSkill,
         }}
       >
         <div className="App">
@@ -72,10 +93,10 @@ function App() {
         </div>
         <Routes>
           <Route path="/home" element={<Filter />} />
-          <Route path="/job" element={<JobRender />} />
+          <Route path="/job" element={isLoggedIn ? <JobRender /> : <Login />} />
 
-          <Route path="/" element={<JobRender />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/" element={isLoggedIn ? <JobRender /> : <Login />} /> */}
+          <Route path="/register" element={<Register/>} />
           <Route
             path="/login"
             element={isLoggedIn ? <Personal /> : <Login />}
