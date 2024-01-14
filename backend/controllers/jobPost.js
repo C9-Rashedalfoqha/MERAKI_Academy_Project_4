@@ -133,8 +133,8 @@ const deleteJob = (req, res) => {
     });
 };
 const createPost = (req, res) => {
-  const { id } = req.token;
-  const { description, photo, userId } = req.body;
+  const userId = req.token.userId;
+  const { description, photo } = req.body;
   const newPost = new postModel({
     description,
     photo,
@@ -156,4 +156,40 @@ const createPost = (req, res) => {
       });
     });
 };
-module.exports = { createPostJob, getAllJob, getJobById, updateJob, deleteJob };
+const getAllPost = (req, res) => {
+  postModel
+    .find()
+    .populate("userId")
+    .populate("comment")
+    .exec()
+    .then((result) => {
+      if (result.length - 1 < 0) {
+        res.status(404).json({
+          success: false,
+          message: "not found post ",
+        });
+      } else if (result.length >= 0) {
+        res.status(200).json({
+          message: "All the post",
+          posts: result,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    });
+};
+const updatePost = (req, res) => {
+  
+};
+module.exports = {
+  createPostJob,
+  getAllJob,
+  getJobById,
+  updateJob,
+  deleteJob,
+  createPost,
+};
