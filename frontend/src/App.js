@@ -11,6 +11,8 @@ import Home from "./components/Home/Home";
 import JobRender from "./components/JobRender/JobRender";
 import Personal from "./components/PersonalPage/Personal";
 import Filter from "./components/filter/Filter";
+import Post from "./components/post/Post";
+
 export const userContext = createContext();
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -25,6 +27,7 @@ function App() {
       return {};
     }
   });
+  const [post, setPost] = useState([]);
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [email, setEmail] = useState("");
@@ -86,6 +89,8 @@ function App() {
           setExperience,
           skill,
           setSkill,
+          post,
+          setPost,
         }}
       >
         <div className="App">
@@ -94,9 +99,8 @@ function App() {
         <Routes>
           <Route path="/home" element={<Filter />} />
           <Route path="/job" element={isLoggedIn ? <JobRender /> : <Login />} />
-
-          {/* <Route path="/" element={isLoggedIn ? <JobRender /> : <Login />} /> */}
-          <Route path="/register" element={<Register/>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Post />} />
           <Route
             path="/login"
             element={isLoggedIn ? <Personal /> : <Login />}

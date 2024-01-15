@@ -6,8 +6,10 @@ import { useContext } from "react";
 import { userContext } from "../../App";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 const JobPost = () => {
+  const navigate = useNavigate();
   const {
     setToken,
     token,
@@ -121,22 +123,30 @@ const JobPost = () => {
         className="btn-"
         variant="outline-success"
         onClick={() => {
-          axios.post(
-            "http://localhost:5000/job",
-            {
-              filterTitle: filter,
-              title: job,
-              jobAddress: address,
-              description: address,
-              salary: salary,
-              photo: url,
-            },
-            {
-              headers: {
-                authorization: `Bearer ${token}`,
+          axios
+            .post(
+              "http://localhost:5000/job",
+              {
+                filterTitle: filter,
+                title: job,
+                jobAddress: address,
+                description: address,
+                salary: salary,
+                photo: url,
               },
-            }
-          );
+              {
+                headers: {
+                  authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((result) => {
+              console.log(result);
+              navigate("/job");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       >
         created new job

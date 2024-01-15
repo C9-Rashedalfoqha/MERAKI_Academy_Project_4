@@ -52,8 +52,8 @@ const JobRender = () => {
           <Grid item xs={12} key={elem._id}>
             <Paper elevation={3} style={{ padding: "20px" }}>
               <Typography variant="h6">
-                {elem.userId.FirstName} {elem.userId.lastName}
-                <img src={elem.photo} alt={elem.photo} />
+                {elem.userId.FirstName} {elem.userId.lastName} <br />
+                <img src={elem.photo} alt={elem.photo} width="1120" />
                 <h3>{elem.title}</h3>
                 <p>{elem.jobAddress}</p>
                 <p>{elem.salary}</p>

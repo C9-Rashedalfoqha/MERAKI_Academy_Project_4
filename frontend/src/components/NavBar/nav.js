@@ -21,7 +21,10 @@ const Nav = () => {
           <PiWarningCircleFill className="con" />
         </Button>
         <Button color="inherit">
-          <FaMessage className="con" />
+          <Link to="/job">
+            {" "}
+            <FaMessage className="con" />
+          </Link>
         </Button>
         <Button color="inherit">
           <Link to="/login">

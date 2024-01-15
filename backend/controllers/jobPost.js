@@ -1,5 +1,5 @@
 const jobModel = require("../models/jobSchema");
-const postModel = require("../models/post");
+
 const createPostJob = (req, res) => {
   const { filterTitle, title, jobAddress, description, salary, photo } =
     req.body;
@@ -132,113 +132,11 @@ const deleteJob = (req, res) => {
       });
     });
 };
-const createPost = (req, res) => {
-  const userId = req.token.userId;
-  const { description, photo } = req.body;
-  const newPost = new postModel({
-    description,
-    photo,
-    userId,
-  });
-  newPost
-    .save()
-    .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: `post Created Successfully`,
-        post: result,
-      });
-    })
-    .catch((err) => {
-      res.status(409).json({
-        success: false,
-        message: err,
-      });
-    });
-};
-const getAllPost = (req, res) => {
-  postModel
-    .find()
-    .populate("userId")
-    .populate("comment")
-    .exec()
-    .then((result) => {
-      if (result.length - 1 < 0) {
-        res.status(404).json({
-          success: false,
-          message: "not found post ",
-        });
-      } else if (result.length >= 0) {
-        res.status(200).json({
-          message: "All the post",
-          posts: result,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    });
-};
-const updatePost = (req, res) => {
-  const { id } = req.params;
-  const { description, photo } = req.body;
-  const update = { description, photo };
-  postModel
-    .findOneAndUpdate({ _id: id }, update, { new: true })
-    .then((result) => {
-      if (!result) {
-        res.status(404).json({
-          success: false,
-          message: `post with id => ${id} not found`,
-        });
-      }
-      res.status(202).json({
-        success: true,
-        message: "updated post",
-        result: result,
-      });
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .json({ success: false, message: `Server Error`, err: err.message });
-    });
-};
-const deletePost = (req, res) => {
-  const { id } = req.params;
-  postModel
-    .findByIdAndDelete({ _id: id })
-    .then((result) => {
-      if (!result) {
-        res.status(404).json({
-          success: false,
-          message: `post with id => ${id} not found`,
-        });
-      }
-      res.status(200).json({
-        success: true,
-        message: `post deleted`,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: `Server Error`,
-        err: err.message,
-      });
-    });
-};
+
 module.exports = {
   createPostJob,
   getAllJob,
   getJobById,
   updateJob,
   deleteJob,
-  createPost,
-  getAllPost,
-  updatePost,
-  deletePost,
 };
