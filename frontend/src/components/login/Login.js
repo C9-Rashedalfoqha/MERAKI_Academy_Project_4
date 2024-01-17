@@ -74,7 +74,8 @@ const Login = () => {
       <Button
         variant="primary"
         type="submit"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           axios
             .post("http://localhost:5000/register/login", {
               Email: email,
@@ -99,6 +100,7 @@ const Login = () => {
         {" "}
         Submit
       </Button>
+      
     </Form>
   );
 };

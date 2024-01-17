@@ -9,20 +9,22 @@ import { userContext } from "../../App";
 
 const Register = () => {
   const navigate = useNavigate();
-  const {  first,
-          setFirst,
-          last,
-          setLast,
-          email,
-          setEmail,
-          password,
-          setPassword,
-          phoneNumber,
-          setPhoneNumber,
-          experience,
-          setExperience,
-          skill,
-          setSkill,} = useContext(userContext);
+  const {
+    first,
+    setFirst,
+    last,
+    setLast,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    phoneNumber,
+    setPhoneNumber,
+    experience,
+    setExperience,
+    skill,
+    setSkill,
+  } = useContext(userContext);
 
   return (
     <div className="register">
@@ -106,10 +108,10 @@ const Register = () => {
               })
               .then((result) => {
                 console.log(result.data);
-                navigate("/");
+                navigate("/login");
               })
               .catch((err) => {
-                console.log(err.message);
+                console.log(err);
               });
           }}
         >

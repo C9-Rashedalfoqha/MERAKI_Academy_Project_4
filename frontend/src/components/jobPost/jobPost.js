@@ -46,9 +46,7 @@ const JobPost = () => {
   };
   return (
     <div className="job">
-      <InputGroup></InputGroup>
-
-      <Form.Label>filter</Form.Label>
+      <Form.Label>position</Form.Label>
       <Form.Select
         aria-label="Default select example"
         onChange={(e) => {
@@ -111,14 +109,11 @@ const JobPost = () => {
         id="inp"
         onChange={(e) => {
           setImage(e.target.files[0]);
-
-          // console.log(e.target.files);
         }}
       />
 
       {image && <button onClick={image && uploadImage}>Upload</button>}
 
-      <img src={url} />
       <Button
         className="btn-"
         variant="outline-success"
@@ -151,6 +146,8 @@ const JobPost = () => {
       >
         created new job
       </Button>
+      <br />
+      <img src={url} />
     </div>
   );
 };

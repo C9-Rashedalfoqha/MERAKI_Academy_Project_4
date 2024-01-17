@@ -6,7 +6,7 @@ const {
   getJobById,
   updateJob,
   deleteJob,
-  
+  getJobByUserId,
 } = require("../controllers/jobPost");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
@@ -18,9 +18,10 @@ jobRouter.post(
   createPostJob
 );
 jobRouter.get("/", getAllJob);
-jobRouter.get("/com", authentication, getJobById);
+jobRouter.get("/user/:id", authentication, getJobByUserId);
 jobRouter.put("/update/:id", authentication, updateJob);
 jobRouter.delete("/delete/:id", authentication, deleteJob);
 jobRouter.post("/:id/comments/", authentication, createNewComment);
+jobRouter.get("/:id", getJobById);
 
 module.exports = jobRouter;

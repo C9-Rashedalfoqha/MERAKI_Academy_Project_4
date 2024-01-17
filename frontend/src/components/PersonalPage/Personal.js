@@ -84,180 +84,214 @@ const Personal = () => {
   };
 
   return (
-    <Container>
-      <Row className="justify-content-center mt-4">
-        <Col md={6}>
-          <div className="parent-per">
-            <Avatar alt="User" src={userPersonal.photo} />
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    First Name:
-                  </label>
-                  <TextField
-                    className="form-control"
-                    label="First Name"
-                    value={first}
-                    onChange={(e) => setFirst(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    First Name:
-                  </label>
-                  <p className="per">{userPersonal.FirstName}</p>
-                </div>
-              </>
-            )}
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Last Name:
-                  </label>
-                  <TextField
-                    className="form-control"
-                    label="Last Name"
-                    value={last}
-                    onChange={(e) => setLast(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Last Name:
-                  </label>
-                  <p className="per">{userPersonal.lastName}</p>
-                </div>
-              </>
-            )}
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">Email:</label>
-                  <TextField
-                    className="form-control"
-                    label="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">Email:</label>
-                  <p className="per">{userPersonal.Email}</p>
-                </div>
-              </>
-            )}
+    <div className="container">
+      {" "}
+      <Container>
+        <Row className="justify-content-center mt-4">
+          <Col md={6}>
+            <div className="parent-per">
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <Avatar
+                      alt="User"
+                      src={userPersonal.photo}
+                      className="avatar"
+                    />
+                    <input
+                      type="file"
+                      id="inp-img"
+                      onChange={(e) => {
+                        setImage(e.target.files[0]);
+                      }}
+                    />
+                    {image && (
+                      <button onClick={image && uploadImage}>Upload</button>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <Avatar alt="User" src={userPersonal.photo} />
+                  </div>
+                </>
+              )}
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      First Name:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="First Name"
+                      value={first}
+                      onChange={(e) => setFirst(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      First Name:
+                    </label>
+                    <p className="per">{userPersonal.FirstName}</p>
+                  </div>
+                </>
+              )}
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Last Name:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="Last Name"
+                      value={last}
+                      onChange={(e) => setLast(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Last Name:
+                    </label>
+                    <p className="per">{userPersonal.lastName}</p>
+                  </div>
+                </>
+              )}
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Email:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Email:
+                    </label>
+                    <p className="per">{userPersonal.Email}</p>
+                  </div>
+                </>
+              )}
 
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Phone Number:
-                  </label>
-                  <TextField
-                    className="form-control"
-                    label="Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Phone Number:
-                  </label>
-                  <p className="per">{userPersonal.phoneNumber}</p>
-                </div>
-              </>
-            )}
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Phone Number:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="Phone Number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Phone Number:
+                    </label>
+                    <p className="per">{userPersonal.phoneNumber}</p>
+                  </div>
+                </>
+              )}
 
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Experience:
-                  </label>
-                  <TextField
-                    className="form-control"
-                    label="Experience"
-                    value={experience}
-                    onChange={(e) => setExperience(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Experience:
-                  </label>
-                  <p className="per">{userPersonal.Experience}</p>
-                </div>
-              </>
-            )}
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Experience:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="Experience"
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Experience:
+                    </label>
+                    <p className="per">{userPersonal.Experience}</p>
+                  </div>
+                </>
+              )}
 
-            {update ? (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Skills:
-                  </label>
-                  <TextField
-                    className="form-control"
-                    label="Skills"
-                    value={skill}
-                    onChange={(e) => setSkill(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group mt-2">
-                  <label className="field-label font-weight-bold">
-                    Skills:
-                  </label>
-                  <p className="per">{userPersonal.Skills}</p>
-                </div>
-              </>
-            )}
-            {update ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  updateData();
-                  setUpdate(!update);
-                }}
-                className="mt-3"
-              >
-                Update user information
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setUpdate(!update)}
-                className="mt-3"
-              >
-                Edit information
-              </Button>
-            )}
-          </div>
-        </Col>
-      </Row>
-    </Container>
+              {update ? (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Skills:
+                    </label>
+                    <TextField
+                      className="form-control"
+                      label="Skills"
+                      value={skill}
+                      onChange={(e) => setSkill(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="form-group mt-2">
+                    <label className="field-label font-weight-bold">
+                      Skills:
+                    </label>
+                    <p className="per">{userPersonal.Skills}</p>
+                  </div>
+                </>
+              )}
+              {update ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    updateData();
+                    setUpdate(!update);
+                  }}
+                  className="mt-3"
+                >
+                  Update user information
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setUpdate(!update)}
+                  className="mt-3"
+                >
+                  Edit information
+                </Button>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+     
+    </div>
   );
 };
 

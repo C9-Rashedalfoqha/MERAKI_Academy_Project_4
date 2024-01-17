@@ -7,14 +7,15 @@ import Login from "./components/login/Login";
 import { createContext, useState } from "react";
 import JobPost from "./components/jobPost/jobPost";
 import Nav from "./components/NavBar/nav";
-import Home from "./components/Home/Home";
 import JobRender from "./components/JobRender/JobRender";
 import Personal from "./components/PersonalPage/Personal";
-import Filter from "./components/filter/Filter";
 import Post from "./components/post/Post";
+import JobDetails from "./components/oneJob/JobDetails";
 
 export const userContext = createContext();
 function App() {
+  const [UserDetail, setUserDetail] = useState("");
+  const [JobDetail, setJobDetail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
@@ -42,12 +43,17 @@ function App() {
   const [salary, setSalary] = useState("");
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
+  const [dashBoard, setDashBoard] = useState([]);
 
   const logout = () => {
-    setToken(null);
+    setToken("");
+    setUserId("");
     setIsLoggedIn(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
   };
+
   return (
     <>
       <userContext.Provider
@@ -91,16 +97,26 @@ function App() {
           setSkill,
           post,
           setPost,
+          JobDetail,
+          setJobDetail,
+          UserDetail,
+          setUserDetail,
+          dashBoard,
+          setDashBoard,
         }}
       >
         <div className="App">
           <Nav />
         </div>
         <Routes>
-          <Route path="/home" element={<Filter />} />
-          <Route path="/job" element={isLoggedIn ? <JobRender /> : <Login />} />
+          <Route path="/job/:id" element={<JobDetails />} />
+          <Route
+            path="/job"
+            exact
+            element={isLoggedIn ? <JobRender /> : <Login />}
+          />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Post />} />
+          <Route path="/" element={token ? <Post /> : <Login />} />
           <Route
             path="/login"
             element={isLoggedIn ? <Personal /> : <Login />}

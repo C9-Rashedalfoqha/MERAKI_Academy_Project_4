@@ -55,10 +55,16 @@ const getAllJob = (req, res) => {
       });
     });
 };
-const getJobById = (req, res) => {
+const getJobByUserId = (req, res) => {
   const userId = req.token.userId;
+  const { id } = req.params;
   jobModel
-    .find({ userId: userId })
+    .find(
+      {
+        _id: id,
+      },
+      { userId: userId }
+    )
     .then((result) => {
       console.log(result);
       if (!result.length) {
@@ -132,11 +138,38 @@ const deleteJob = (req, res) => {
       });
     });
 };
+const getJobById = (req, res) => {
+  const { id } = req.params;
+  jobModel
+    .findById({ _id: id })
+    .populate("userId")
+    .populate("comment")
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          message: `job with id => ${id} not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
 
 module.exports = {
   createPostJob,
   getAllJob,
-  getJobById,
+  getJobByUserId,
   updateJob,
   deleteJob,
+  getJobById,
 };

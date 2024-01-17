@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { AiFillHome } from "react-icons/ai";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
 import { FaMessage } from "react-icons/fa6";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { userContext } from "../../App";
 
 const Nav = () => {
+  const { logout } = useContext(userContext);
   return (
     <AppBar position="static" color="inherit" className="marg">
       <Toolbar>
@@ -30,6 +33,14 @@ const Nav = () => {
           <Link to="/login">
             <IoIosContact className="con" />
           </Link>
+        </Button>
+        <Button
+          onClick={() => {
+            logout()
+          }}
+        >
+          {" "}
+          <RiLogoutCircleRLine />
         </Button>
       </Toolbar>
     </AppBar>
