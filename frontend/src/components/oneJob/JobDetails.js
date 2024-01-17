@@ -36,8 +36,7 @@ const JobDetails = () => {
     <div>
       <h2>Job Details</h2>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {!loading && !error && (
+      {!loading && (
         <>
           {jobDetails.photo ? (
             <img src={jobDetails.photo} />
