@@ -12,7 +12,6 @@ const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState("");
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios
