@@ -93,7 +93,9 @@ const Nav = () => {
 
         <Button color="inherit" to="/newJob"></Button>
         <Button color="inherit">
-          <PiWarningCircleFill className="con" />
+          <Link to="about">
+            <PiWarningCircleFill className="con" />
+          </Link>
         </Button>
         <Button color="inherit">
           <Link to="/job">
@@ -102,7 +104,7 @@ const Nav = () => {
         </Button>
         <Button color="inherit">
           <Link to="/login">
-            {isLoggedIn ? (
+            {userPersonal.photo ? (
               <img
                 src={userPersonal.photo}
                 className="rounded-circle mr-2"
@@ -123,7 +125,6 @@ const Nav = () => {
           {" "}
           <RiLogoutCircleRLine />
         </Button>
-       
       </Toolbar>
     </AppBar>
   );

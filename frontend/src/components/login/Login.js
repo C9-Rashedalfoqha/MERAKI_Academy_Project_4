@@ -64,6 +64,7 @@ const Login = () => {
               console.log(credentialResponse);
               setToken(credentialResponse.credential);
               localStorage.setItem("token", token);
+              navigate("/");
             }}
             onError={() => {
               setError("Google login failed");

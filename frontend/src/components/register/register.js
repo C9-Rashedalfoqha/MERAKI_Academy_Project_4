@@ -142,7 +142,7 @@ const Register = () => {
                 type="text"
                 className="form-control"
                 id="formExperience"
-                placeholder="Enter your experience"
+                placeholder="Enter your experience "
                 onChange={(e) => setExperience(e.target.value)}
               />
             </div>
@@ -153,7 +153,7 @@ const Register = () => {
                 type="text"
                 className="form-control"
                 id="formSkills"
-                placeholder="Enter your skills & qualifications"
+                placeholder="Enter your skills & qualifications "
                 onChange={(e) => setSkill(e.target.value)}
               />
             </div>

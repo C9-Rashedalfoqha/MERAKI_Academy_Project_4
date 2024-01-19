@@ -83,33 +83,32 @@ const Personal = () => {
       skill !== userPersonal.Skills ||
       url !== userPersonal.photo;
 
-    if (isDataModified) {
-      try {
-        const result = await axios.put(
-          `http://localhost:5000/register/update/${userPersonal._id}`,
-          {
-            FirstName: first,
-            lastName: last,
-            Email: email,
-            password: password,
-            phoneNumber: phoneNumber,
-            Experience: experience,
-            Skills: skill,
-            photo: url,
+    try {
+      const result = await axios.put(
+        `http://localhost:5000/register/update/${userPersonal._id}`,
+        {
+          FirstName: first,
+          lastName: last,
+          Email: email,
+          password: password,
+          phoneNumber: phoneNumber,
+          Experience: experience,
+          Skills: skill,
+          photo: url,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserPersonal({ ...userPersonal, ...result.data.result });
-        console.log(result);
-        uploadImage();
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
+        }
+      );
+      setUserPersonal({ ...userPersonal, ...result.data.result });
+      console.log(result);
+      uploadImage();
+    } catch (err) {
+      console.log(err.message);
+    }
+    {
       setUpdate(!update);
     }
   };
@@ -119,16 +118,22 @@ const Personal = () => {
       <Row className="justify-content-center">
         <Col md={4}>
           <div className="card">
-            <img
-              src={userPersonal.photo}
-              alt="User Photo"
-              className="card-img-top img-fluid"
-            />
+            {userPersonal.photo && (
+              <img
+                src={userPersonal.photo}
+                alt="User Photo"
+                className="card-img-top img-fluid"
+              />
+            )}
             <div className="card-body">
+              <label for="floatingInput">Name:</label>
               <h5 className="card-title">
-                {userPersonal.FirstName} {userPersonal.lastName}
-              </h5>
+                {userPersonal.FirstName}
+                {userPersonal.lastName}
+              </h5>{" "}
+              <label for="floatingInput">Email:</label>
               <p className="card-text">{userPersonal.Email}</p>
+              <label for="floatingInput">phoneNumber:</label>
               <p className="card-text">{userPersonal.phoneNumber}</p>
               <div className="form-group mt-2">
                 {update ? (
@@ -167,10 +172,9 @@ const Personal = () => {
                     placeholder="Enter your first name"
                   />
                 ) : (
-                  <p className="per">{userPersonal.FirstName}</p>
+                  <p className="per"></p>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <TextField
@@ -181,10 +185,14 @@ const Personal = () => {
                     placeholder="Enter your last name"
                   />
                 ) : (
-                  <p className="per">{userPersonal.lastName}</p>
+                  <>
+                    <label for="floatingInput">Name:</label>
+                    <p className="per">
+                      {userPersonal.FirstName} {userPersonal.lastName}
+                    </p>
+                  </>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <TextField
@@ -194,10 +202,13 @@ const Personal = () => {
                     placeholder="Enter your email"
                   />
                 ) : (
-                  <p className="per">{userPersonal.Email}</p>
+                  <>
+                    <label for="floatingInput">Email:</label>
+
+                    <p className="per">{userPersonal.Email}</p>
+                  </>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <TextField
@@ -207,10 +218,12 @@ const Personal = () => {
                     placeholder="Enter your phone number"
                   />
                 ) : (
-                  <p className="per">{userPersonal.phoneNumber}</p>
+                  <>
+                    <label for="floatingInput">phoneNumber:</label>
+                    <p className="per">{userPersonal.phoneNumber}</p>
+                  </>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <TextField
@@ -220,10 +233,12 @@ const Personal = () => {
                     placeholder="Enter your experience"
                   />
                 ) : (
-                  <p className="per">{userPersonal.Experience}</p>
+                  <>
+                    <label>Experience:</label>
+                    <p className="per">{userPersonal.Experience}</p>
+                  </>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <TextField
@@ -233,10 +248,12 @@ const Personal = () => {
                     placeholder="Enter your skills"
                   />
                 ) : (
-                  <p className="per">{userPersonal.Skills}</p>
+                  <>
+                    <label>Skills:</label>
+                    <p className="per">{userPersonal.Skills}</p>
+                  </>
                 )}
               </div>
-
               <div className="form-group mt-2">
                 {update ? (
                   <Button
@@ -276,7 +293,6 @@ const Personal = () => {
                   }}
                   className="text-decoration-none text-dark"
                 >
-                  {" "}
                   <img
                     src={post.photo}
                     alt="Post Photo"

@@ -12,6 +12,7 @@ import Personal from "./components/PersonalPage/Personal";
 import Post from "./components/post/Post";
 import JobDetails from "./components/oneJob/JobDetails";
 import User from "./components/users/User";
+import About from "./components/about page/About";
 
 export const userContext = createContext();
 function App() {
@@ -117,6 +118,7 @@ function App() {
           <Nav />
         </div>
         <Routes>
+          <Route path="/about" element={<About />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/job/:id" element={<JobDetails />} />
           <Route
