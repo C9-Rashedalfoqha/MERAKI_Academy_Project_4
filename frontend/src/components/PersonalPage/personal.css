@@ -1,22 +1,24 @@
-.parent-per {
-  display: inline-block;
-  border: 2px solid gray;
-  width: 350px;
-  height: 400px;
-  position: absolute;
-  top: 20%;
-  left: 3%;
-}
-.per {
-  border: 1px solid gold;
-  width: 300px;
-  margin: 10px;
-}
-.per-label {
-  display: inline;
-  margin: 10px;
-  text-decoration: double;
-  font-family: "Courier New", Courier, monospace;
-  font-size: larger;
+.container {
+  margin-top: 20px;
 }
 
+.card {
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.img-per {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.per {
+  font-weight: bold;
+}

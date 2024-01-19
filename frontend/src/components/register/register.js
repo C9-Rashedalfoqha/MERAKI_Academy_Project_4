@@ -1,14 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../register/register.css";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { userContext } from "../../App";
+import "../register/register.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     first,
     setFirst,
@@ -25,99 +24,156 @@ const Register = () => {
     skill,
     setSkill,
   } = useContext(userContext);
+  const [error, setError] = useState(null);
+
+  const handleRegister = () => {
+    setIsLoading(true);
+    setError(null);
+
+    axios
+      .post("http://localhost:5000/register", {
+        FirstName: first,
+        lastName: last,
+        Email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        Experience: experience,
+        Skills: skill,
+      })
+      .then((result) => {
+        console.log(result.data);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Registration failed. Please try again.");
+      });
+  };
 
   return (
-    <div className="register">
-      <br />
-      <Form>
-        <Form.Group className="mb-3" controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your first name"
-            onChange={(e) => setFirst(e.target.value)}
-          />
-        </Form.Group>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <form>
+            <h2 className="mb-4">Register</h2>
 
-        <Form.Group className="mb-3" controlId="formLastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your last name"
-            onChange={(e) => setLast(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formFirstName">First Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="formFirstName"
+                placeholder="Enter your first name"
+                minLength="3"
+                maxLength="10"
+                onChange={(e) => setFirst(e.target.value)}
+                required
+              />
+            </div>
 
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter your email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formLastName">Last Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="formLastName"
+                placeholder="Enter your last name"
+                minLength="3"
+                maxLength="10"
+                onChange={(e) => setLast(e.target.value)}
+                required
+              />
+            </div>
 
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formEmail">Email</label>
+              <input
+                type="email"
+                className="form-control"
+                id="formEmail"
+                placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        <Form.Group className="mb-3" controlId="formPhoneNumber">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control
-            type="tel"
-            placeholder="Enter your phone number"
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formPassword">Password</label>
+              <div className="input-group">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  className="form-control"
+                  id="formPassword"
+                  placeholder="Enter your password"
+                  minLength="8"
+                  maxLength="50"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  >
+                    {passwordVisible ? "Hide" : "Show"}
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        <Form.Group className="mb-3" controlId="formExperience">
-          <Form.Label>Experience</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your experience"
-            onChange={(e) => setExperience(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formPhoneNumber">Phone Number</label>
+              <input
+                type="tel"
+                className="form-control"
+                id="formPhoneNumber"
+                placeholder="Enter your phone number"
+                minLength="10"
+                maxLength="10"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+              />
+            </div>
 
-        <Form.Group className="mb-3" controlId="formSkills">
-          <Form.Label>Skills & Qualifications</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your skills & qualifications"
-            onChange={(e) => setSkill(e.target.value)}
-          />
-        </Form.Group>
+            <div className="form-group">
+              <label htmlFor="formExperience">Experience</label>
+              <input
+                type="text"
+                className="form-control"
+                id="formExperience"
+                placeholder="Enter your experience"
+                onChange={(e) => setExperience(e.target.value)}
+              />
+            </div>
 
-        <Button
-          variant="primary"
-          onClick={() => {
-            axios
-              .post("http://localhost:5000/register", {
-                FirstName: first,
-                lastName: last,
-                Email: email,
-                password: password,
-                phoneNumber: phoneNumber,
-                Experience: experience,
-                Skills: skill,
-              })
-              .then((result) => {
-                console.log(result.data);
-                navigate("/login");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }}
-        >
-          Register
-        </Button>
-      </Form>
+            <div className="form-group">
+              <label htmlFor="formSkills">Skills & Qualifications</label>
+              <input
+                type="text"
+                className="form-control"
+                id="formSkills"
+                placeholder="Enter your skills & qualifications"
+                onChange={(e) => setSkill(e.target.value)}
+              />
+            </div>
+
+            {error && <p className="text-danger">{error}</p>}
+
+            <button
+              type="button"
+              className={`btn btn-primary ${isLoading ? "disabled" : ""}`}
+              onClick={handleRegister}
+            >
+              {isLoading ? "Registering..." : "Register"}
+            </button>
+
+            <p className="mt-3">
+              Already have an account? <Link to="/login">Login</Link>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

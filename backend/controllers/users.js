@@ -22,7 +22,8 @@ const register = (req, res) => {
     Experience,
     Skills,
     role: "65997cde0c22c72b02ed5d26",
-    photo,
+    photo:
+      "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Picture.png",
   });
   newUser
     .save()

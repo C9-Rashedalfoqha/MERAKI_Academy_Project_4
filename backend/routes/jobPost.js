@@ -18,7 +18,7 @@ jobRouter.post(
   createPostJob
 );
 jobRouter.get("/", getAllJob);
-jobRouter.get("/user/:id", authentication, getJobByUserId);
+jobRouter.get("/user/:userId", getJobByUserId);
 jobRouter.put("/update/:id", authentication, updateJob);
 jobRouter.delete("/delete/:id", authentication, deleteJob);
 jobRouter.post("/:id/comments/", authentication, createNewComment);

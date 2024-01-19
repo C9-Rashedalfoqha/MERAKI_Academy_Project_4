@@ -1,4 +1,5 @@
 const jobModel = require("../models/jobSchema");
+const Post = require("../models/post");
 
 const createPostJob = (req, res) => {
   const { filterTitle, title, jobAddress, description, salary, photo } =
@@ -56,26 +57,23 @@ const getAllJob = (req, res) => {
     });
 };
 const getJobByUserId = (req, res) => {
-  const userId = req.token.userId;
-  const { id } = req.params;
+  const { userId } = req.params;
+
   jobModel
-    .find(
-      {
-        _id: id,
-      },
-      { userId: userId }
-    )
+    .find({ userId: userId })
+    .populate("userId")
     .then((result) => {
       console.log(result);
-      if (!result.length) {
+
+      if (!result) {
         res.status(404).json({
           success: false,
-          message: "there is no posts",
+          message: "There is no post with the specified ID",
         });
-      } else if (result.length) {
+      } else {
         res.status(200).json({
           success: true,
-          message: `All the post for userId`,
+          message: "Post found",
           job: result,
         });
       }

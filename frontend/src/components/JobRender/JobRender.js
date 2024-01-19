@@ -2,17 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { userContext } from "../../App";
 import { useContext } from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import "../JobRender/job.css";
 import { Link } from "react-router-dom";
 import { BsFillSendPlusFill } from "react-icons/bs";
-import { IoSendSharp } from "react-icons/io5";
-
+import "./job.css";
 const JobRender = () => {
   const {
     setToken,
@@ -37,9 +29,11 @@ const JobRender = () => {
     setUserDetail,
     dashBoard,
     setDashBoard,
+    filteredJobs,
+    searchTerm,
+    setSearchTerm,
   } = useContext(userContext);
   const [comment, setComment] = useState("");
-  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     axios
@@ -52,222 +46,95 @@ const JobRender = () => {
         console.log(err.message);
       });
   }, []);
+
   return (
-    <>
-      <Container>
+    <div className="container mt-5">
+      {filteredJobs.length ? (
+        <>{filteredJobs.map((elem) => {})}</>
+      ) : (
+        <div className="col-md-12 loader"></div>
+      )}
+      <div className="row">
         {dashBoard.length ? (
           <>
-            {" "}
-            <div className="new">
-              <Link to="/newJob">
-                <Button variant="contained">
-                  {" "}
-                  added New job
-                  <BsFillSendPlusFill className="icon" />
-                </Button>
-              </Link>
-            </div>
-            {dashBoard ? (
-              <>
-                <Grid container spacing={3}>
-                  {dashBoard.map((elem) => (
-                    <Grid item xs={12} key={elem._id}>
-                      <Paper elevation={3} style={{ padding: "20px" }}>
-                        <Typography variant="h6">
-                          <div>
-                            <Link
-                              to={`/user/${elem.userId._id}`}
-                              onClick={() => {
-                                setUserDetail(elem.userId._id);
-                              }}
-                            >
-                              <img src={elem.userId.photo} />
-                              {elem.userId.FirstName} {elem.userId.lastName}
-                            </Link>
-                          </div>
-                          <br />
-                          <img src={elem.photo} alt={elem.photo} width="1120" />
-                          <h3>
-                            <Link
-                              to={`/job/${elem._id}`}
-                              onClick={() => {
-                                setJobDetail(elem._id);
-                              }}
-                            >
-                              {elem.title}
-                            </Link>
-                          </h3>
-                          <p>{elem.jobAddress}</p>
-                          <p>{elem.salary}</p>
-                          <p>{elem.description}</p>
-                        </Typography>
-                        <div>
-                          {elem.comment.map((elem) => (
-                            <Typography key={elem._id} variant="body1">
-                              {elem.comment}
-                            </Typography>
-                          ))}
-                        </div>
-                        <TextField
-                          placeholder="Comment"
-                          onChange={(e) => setComment(e.target.value)}
-                          fullWidth
-                        />
-                        <div className="comment">
-                          {" "}
-                          <Button
-                            variant="contained"
-                            onClick={() => {
-                              axios
-                                .post(
-                                  `http://localhost:5000/job/${elem._id}/comments/`,
-                                  {
-                                    comment: comment,
-                                  },
-                                  {
-                                    headers: {
-                                      authorization: `Bearer ${token}`,
-                                    },
-                                  }
-                                )
-                                .then((result) => {
-                                  console.log(result);
-                                  const updatedDashBo = dashBoard.map(
-                                    (element) =>
-                                      element._id === elem._id
-                                        ? {
-                                            ...element,
-                                            comment: [
-                                              ...element.comment,
-                                              {
-                                                comment: comment,
-                                              },
-                                            ],
-                                          }
-                                        : element
-                                  );
-                                  setDashBoard(updatedDashBo);
-                                  setComment("");
-                                })
-                                .catch((err) => {
-                                  console.log(err);
-                                });
-                            }}
-                          >
-                            <IoSendSharp />
-                          </Button>
-                        </div>
-                        {elem.userId._id === userId && (
-                          <>
-                            <Button
-                              variant="contained"
-                              color="error"
-                              onClick={() => {
-                                axios
-                                  .delete(
-                                    `http://localhost:5000/job/delete/${elem._id}`,
-                                    {
-                                      headers: {
-                                        authorization: `Bearer ${token}`,
-                                      },
-                                    }
-                                  )
-                                  .then((result) => {
-                                    const filteredDashBo = dashBoard.filter(
-                                      (element, i) => {
-                                        return elem._id != element._id;
-                                      }
-                                    );
-                                    setDashBoard(filteredDashBo);
-                                    console.log(filteredDashBo);
-                                  })
-                                  .catch((err) => {
-                                    console.log(err.message);
-                                  });
-                              }}
-                            >
-                              Delete
-                            </Button>
-                            {update && (
-                              <>
-                                <TextField
-                                  type="text"
-                                  placeholder="Edit Job Title"
-                                  onChange={(e) => setJob(e.target.value)}
-                                  fullWidth
-                                />
-                                <TextField
-                                  type="text"
-                                  placeholder="Edit Job Address"
-                                  onChange={(e) => setAddress(e.target.value)}
-                                  fullWidth
-                                />
-                                <TextField
-                                  type="text"
-                                  placeholder="Edit Job Description"
-                                  onChange={(e) =>
-                                    setDescription(e.target.value)
-                                  }
-                                  fullWidth
-                                />
-                              </>
-                            )}
-                            <Button
-                              variant="contained"
-                              onClick={() => {
-                                axios
-                                  .put(
-                                    `http://localhost:5000/job/update/${elem._id}`,
-                                    {
-                                      title: job,
-                                      jobAddress: address,
-                                      description: description,
-                                    },
-                                    {
-                                      headers: {
-                                        authorization: `Bearer ${token}`,
-                                      },
-                                    }
-                                  )
-                                  .then((result) => {
-                                    const updatedDashBo = dashBoard.map(
-                                      (element) =>
-                                        element._id === elem._id
-                                          ? {
-                                              ...element,
-                                              title: job,
-                                              jobAddress: address,
-                                              description: description,
-                                            }
-                                          : element
-                                    );
-                                    setDashBoard(updatedDashBo);
-                                    console.log(result);
-                                    setUpdate(true);
-                                  })
-                                  .catch((err) => {
-                                    console.log(err.message);
-                                  });
-                              }}
-                            >
-                              Update
-                            </Button>
-                          </>
-                        )}
-                      </Paper>
-                    </Grid>
-                  ))}
-                </Grid>
-              </>
-            ) : (
-              <div class="loader"></div>
-            )}
+            {dashBoard.map((elem) => (
+              <div key={elem?._id} className="col-md-6 mb-4">
+                <div className="card">
+                  <Link
+                    to={`/user/${elem.userId._id}`}
+                    onClick={() => {
+                      setUserDetail(elem.userId._id);
+                    }}
+                    className="text-decoration-none"
+                  >
+                    <img
+                      src={
+                        elem?.userId?.photo ||
+                        "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Picture.png"
+                      }
+                      className="rounded-circle mr-2"
+                      id="image"
+                      width="40"
+                      height="40"
+                      alt="User Profile"
+                    />
+                    {elem?.userId.FirstName} {elem?.userId.lastName}
+                  </Link>
+                  {elem.photo ? (
+                    <Link
+                      to={`/job/${elem._id}`}
+                      onClick={() => {
+                        setJobDetail(elem._id);
+                      }}
+                    >
+                      <img
+                        src={elem.photo}
+                        alt={elem.photo}
+                        className="card-img-top"
+                        width="400"
+                        height="400"
+                      />
+                    </Link>
+                  ) : (
+                    <img
+                      src="https://images.pexels.com/photos/14983436/pexels-photo-14983436/free-photo-of-church-roof-with-a-cross-on-top.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt={elem.photo}
+                      className="card-img-top"
+                      width="400"
+                      height="400"
+                    />
+                  )}
+                  <div className="card-body">
+                    <h5 className="card-title mt-2">
+                      <Link
+                        to={`/job/${elem._id}`}
+                        onClick={() => {
+                          setJobDetail(elem._id);
+                        }}
+                        className="text-decoration-none text-dark"
+                      >
+                        {elem.title}
+                      </Link>
+                    </h5>
+                    <label>Job Address:</label>
+                    <p className="card-text" id="p">{elem.jobAddress}</p>
+                    <label>Description:</label>
+                    <p className="card-text" id="p" >{elem.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </>
         ) : (
-          <div class="loader"></div>
+          <div className="col-md-12 loader"></div>
         )}
-      </Container>
-    </>
+      </div>
+      <div className="col-md-2" id="add-new-job">
+        <Link to="/newJob" className="btn btn-primary">
+          Add New Job <BsFillSendPlusFill className="icon" />
+        </Link>
+      </div>
+    </div>
   );
 };
 

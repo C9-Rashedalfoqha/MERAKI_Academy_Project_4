@@ -11,6 +11,7 @@ import JobRender from "./components/JobRender/JobRender";
 import Personal from "./components/PersonalPage/Personal";
 import Post from "./components/post/Post";
 import JobDetails from "./components/oneJob/JobDetails";
+import User from "./components/users/User";
 
 export const userContext = createContext();
 function App() {
@@ -28,6 +29,8 @@ function App() {
       return {};
     }
   });
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [post, setPost] = useState([]);
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
@@ -44,7 +47,9 @@ function App() {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [dashBoard, setDashBoard] = useState([]);
-
+  const filteredJobs = dashBoard.filter((elem) =>
+    elem.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const logout = () => {
     setToken("");
     setUserId("");
@@ -59,6 +64,9 @@ function App() {
       <userContext.Provider
         value={{
           logout,
+          filteredJobs,
+          searchTerm,
+          setSearchTerm,
           setToken,
           token,
           isLoggedIn,
@@ -109,6 +117,7 @@ function App() {
           <Nav />
         </div>
         <Routes>
+          <Route path="/user/:id" element={<User />} />
           <Route path="/job/:id" element={<JobDetails />} />
           <Route
             path="/job"
