@@ -121,7 +121,7 @@ function App() {
           <Route
             path="/job"
             exact
-            element={isLoggedIn ? <JobRender /> : <Login />}
+            element={<JobRender />}
           />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={token ? <Post /> : <Login />} />
