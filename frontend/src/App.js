@@ -107,7 +107,6 @@ function App() {
           setPost,
           JobDetail,
           setJobDetail,
-          UserDetail,
           dashBoard,
           setDashBoard,
         }}
