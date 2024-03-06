@@ -80,7 +80,7 @@ const Login = () => {
           onClick={(e) => {
             e.preventDefault();
             axios
-              .post("https://ra-job.onrender.com//register/login", {
+              .post("https://r-a-jobsearch.onrender.com/register/login", {
                 Email: email,
                 password: password,
               })

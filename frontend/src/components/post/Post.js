@@ -39,7 +39,7 @@ const Post = () => {
 
   useEffect(() => {
     axios
-      .get("https://ra-job.onrender.com//post/get", {
+      .get("https://r-a-jobsearch.onrender.com/post/get", {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -93,7 +93,7 @@ const Post = () => {
                         onClick={() => {
                           axios
                             .post(
-                              "https://ra-job.onrender.com//post",
+                              "https://r-a-jobsearch.onrender.com/post",
                               {
                                 description: newPostDescription,
                                 photo: url,
@@ -246,7 +246,7 @@ const Post = () => {
                             onClick={() => {
                               axios
                                 .post(
-                                  `https://ra-job.onrender.com//post/${elem._id}/comments/`,
+                                  `https://r-a-jobsearch.onrender.com/post/${elem._id}/comments/`,
                                   {
                                     comment: comment,
                                   },
@@ -289,7 +289,7 @@ const Post = () => {
                               onClick={() => {
                                 axios
                                   .delete(
-                                    `https://ra-job.onrender.com//post/delete/${elem._id}`,
+                                    `https://r-a-jobsearch.onrender.com/post/delete/${elem._id}`,
                                     {
                                       headers: {
                                         authorization: `Bearer ${token}`,
@@ -319,7 +319,7 @@ const Post = () => {
                                   onClick={() => {
                                     axios
                                       .put(
-                                        `https://ra-job.onrender.com//post/update/${elem._id}`,
+                                        `https://r-a-jobsearch.onrender.com/post/update/${elem._id}`,
                                         {
                                           description: description,
                                         },
