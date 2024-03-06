@@ -37,7 +37,7 @@ const JobRender = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/job")
+      .get("https://ra-job.onrender.com//job")
       .then((result) => {
         console.log(result);
         setDashBoard(result.data.posts);

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const jobSchema = new mongoose.Schema({
   filterTitle: { type: String },
   title: { type: String },
-  jobAddress: { type: String },
+  jobAddress: { type: String }, 
   description: { type: String },
   salary: { type: Number },
   photo: { type: String },

@@ -39,7 +39,7 @@ const Post = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/post/get", {
+      .get("https://ra-job.onrender.com//post/get", {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -93,7 +93,7 @@ const Post = () => {
                         onClick={() => {
                           axios
                             .post(
-                              "http://localhost:5000/post",
+                              "https://ra-job.onrender.com//post",
                               {
                                 description: newPostDescription,
                                 photo: url,
@@ -246,7 +246,7 @@ const Post = () => {
                             onClick={() => {
                               axios
                                 .post(
-                                  `http://localhost:5000/post/${elem._id}/comments/`,
+                                  `https://ra-job.onrender.com//post/${elem._id}/comments/`,
                                   {
                                     comment: comment,
                                   },
@@ -289,7 +289,7 @@ const Post = () => {
                               onClick={() => {
                                 axios
                                   .delete(
-                                    `http://localhost:5000/post/delete/${elem._id}`,
+                                    `https://ra-job.onrender.com//post/delete/${elem._id}`,
                                     {
                                       headers: {
                                         authorization: `Bearer ${token}`,
@@ -319,7 +319,7 @@ const Post = () => {
                                   onClick={() => {
                                     axios
                                       .put(
-                                        `http://localhost:5000/post/update/${elem._id}`,
+                                        `https://ra-job.onrender.com//post/update/${elem._id}`,
                                         {
                                           description: description,
                                         },

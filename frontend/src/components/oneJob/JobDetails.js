@@ -27,7 +27,7 @@ const JobDetails = () => {
       Name:${userPersonal.FirstName},
       skills:${userPersonal.Skills}
       ,Experience:${userPersonal.Experience}
-      phoneNumber:${userPersonal.phoneNumber}`,
+      phoneNumber:${userPersonal.phoneNumber}`
     };
 
     emailjs
@@ -41,10 +41,10 @@ const JobDetails = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/job/${id}`, {
+      .get(`https://ra-job.onrender.com//job/${id}`, {
         headers: {
-          authorization: `Bearer ${token}`,
-        },
+          authorization: `Bearer ${token}`
+        }
       })
       .then((result) => {
         console.log(result);

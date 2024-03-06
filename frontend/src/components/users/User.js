@@ -13,7 +13,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/job/user/${id}`, {
+      .get(`https://ra-job.onrender.com//job/user/${id}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },

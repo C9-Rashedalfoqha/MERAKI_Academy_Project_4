@@ -59,7 +59,7 @@ const Personal = () => {
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:5000/job/user/${userPersonal._id}`
+          `https://ra-job.onrender.com//job/user/${userPersonal._id}`
         );
         console.log(result);
         setUserPosts(result.data.job);
@@ -85,7 +85,7 @@ const Personal = () => {
 
     try {
       const result = await axios.put(
-        `http://localhost:5000/register/update/${userPersonal._id}`,
+        `https://ra-job.onrender.com//register/update/${userPersonal._id}`,
         {
           FirstName: first,
           lastName: last,
