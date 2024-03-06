@@ -32,9 +32,9 @@ const Personal = () => {
     setExperience,
     skill,
     setSkill,
-    token,
+    token
   } = useContext(userContext);
-
+  const [JobDetail, setJobDetail] = useState("");
   const uploadImage = async () => {
     if (image) {
       const data = new FormData();
@@ -94,12 +94,12 @@ const Personal = () => {
           phoneNumber: phoneNumber,
           Experience: experience,
           Skills: skill,
-          photo: url,
+          photo: url
         },
         {
           headers: {
-            authorization: `Bearer ${token}`,
-          },
+            authorization: `Bearer ${token}`
+          }
         }
       );
       setUserPersonal({ ...userPersonal, ...result.data.result });

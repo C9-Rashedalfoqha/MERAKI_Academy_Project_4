@@ -60,7 +60,7 @@ const Nav = () => {
     isLoggedIn,
     userPersonal
   } = useContext(userContext);
-
+const [searchTerm, setSearchTerm] = useState("")
   return (
     <AppBar position="static" color="inherit" className="marg">
       <Toolbar>
