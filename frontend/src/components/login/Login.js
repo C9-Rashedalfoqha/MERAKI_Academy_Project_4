@@ -85,7 +85,6 @@ const Login = () => {
                 password: password,
               })
               .then((result) => {
-                location.reload();
                 const token = result.data.token;
                 localStorage.setItem("token", token);
                 setToken(token);

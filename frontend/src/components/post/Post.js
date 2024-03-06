@@ -21,6 +21,8 @@ const Post = () => {
   const [newPostDescription, setNewPostDescription] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [Like, setLike] = useState(false);
+  const [UserDetail, setUserDetail] = useState("");
+
 
   const uploadImage = () => {
     const data = new FormData();
@@ -110,7 +112,6 @@ const Post = () => {
                               setNewPostDescription("");
                               setImage(null);
                               setUrl("");
-                              location.reload(post);
                             });
                         }}
                       >

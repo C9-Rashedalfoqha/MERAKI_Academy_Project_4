@@ -16,7 +16,6 @@ import About from "./components/about page/About";
 
 export const userContext = createContext();
 function App() {
-  const [UserDetail, setUserDetail] = useState("");
   const [JobDetail, setJobDetail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
@@ -109,7 +108,6 @@ function App() {
           JobDetail,
           setJobDetail,
           UserDetail,
-          setUserDetail,
           dashBoard,
           setDashBoard,
         }}

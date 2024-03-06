@@ -9,7 +9,7 @@ const User = () => {
   const [UserDetails, setUserDetails] = useState([]);
 
   const { id } = useParams();
-  const { UserDetail, setUserDetail, token } = useContext(userContext);
+  const { token } = useContext(userContext);
 
   useEffect(() => {
     axios
