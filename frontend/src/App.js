@@ -108,7 +108,7 @@ function App() {
           JobDetail,
           setJobDetail,
           dashBoard,
-          setDashBoard,
+          setDashBoard
         }}
       >
         <div className="App">
@@ -118,11 +118,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/job/:id" element={<JobDetails />} />
-          <Route
-            path="/job"
-            exact
-            element={<JobRender />}
-          />
+          <Route path="/job" exact element={<JobRender />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={token ? <Post /> : <Login />} />
           <Route
