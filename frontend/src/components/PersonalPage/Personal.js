@@ -32,9 +32,9 @@ const Personal = () => {
     setExperience,
     skill,
     setSkill,
-    token
+    token,
   } = useContext(userContext);
-  const [JobDetail, setJobDetail] = useState("");
+
   const uploadImage = async () => {
     if (image) {
       const data = new FormData();
@@ -59,7 +59,7 @@ const Personal = () => {
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `https://r-a-jobsearch.onrender.com/job/user/${userPersonal._id}`
+          `https://ra-job.onrender.com//job/user/${userPersonal._id}`
         );
         console.log(result);
         setUserPosts(result.data.job);
@@ -85,7 +85,7 @@ const Personal = () => {
 
     try {
       const result = await axios.put(
-        `https://r-a-jobsearch.onrender.com/register/update/${userPersonal._id}`,
+        `https://ra-job.onrender.com//register/update/${userPersonal._id}`,
         {
           FirstName: first,
           lastName: last,
@@ -94,12 +94,12 @@ const Personal = () => {
           phoneNumber: phoneNumber,
           Experience: experience,
           Skills: skill,
-          photo: url
+          photo: url,
         },
         {
           headers: {
-            authorization: `Bearer ${token}`
-          }
+            authorization: `Bearer ${token}`,
+          },
         }
       );
       setUserPersonal({ ...userPersonal, ...result.data.result });
