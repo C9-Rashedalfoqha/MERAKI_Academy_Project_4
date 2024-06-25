@@ -1,5 +1,5 @@
 import "./App.css";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import Register from "./components/register/register";
@@ -16,6 +16,7 @@ import About from "./components/about page/About";
 
 export const userContext = createContext();
 function App() {
+  const [UserDetail, setUserDetail] = useState("");
   const [JobDetail, setJobDetail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
@@ -50,6 +51,7 @@ function App() {
   const filteredJobs = dashBoard.filter((elem) =>
     elem.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const navigate = useNavigate();
   const logout = () => {
     setToken("");
     setUserId("");
@@ -57,6 +59,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("userId");
+    navigate("/login")
   };
 
   return (
@@ -107,6 +110,8 @@ function App() {
           setPost,
           JobDetail,
           setJobDetail,
+          UserDetail,
+          setUserDetail,
           dashBoard,
           setDashBoard
         }}
@@ -118,7 +123,11 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/job/:id" element={<JobDetails />} />
-          <Route path="/job" exact element={<JobRender />} />
+          <Route
+            path="/job"
+            exact
+            element={isLoggedIn ? <JobRender /> : <Login />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={token ? <Post /> : <Login />} />
           <Route
