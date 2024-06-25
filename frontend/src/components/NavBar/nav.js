@@ -1,10 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, InputBase } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  InputBase,
+} from "@mui/material";
 import { AiFillHome } from "react-icons/ai";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
-import { FaMessage } from "react-icons/fa6";
+import { FaMessage } from "react-icons/fa";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { userContext } from "../../App";
 import { styled, alpha } from "@mui/material/styles";
@@ -17,15 +23,15 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: "auto"
-  }
+    width: "auto",
+  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -35,7 +41,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   pointerEvents: "none",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
 }));
 
 const SearchInput = styled(InputBase)(({ theme }) => ({
@@ -46,24 +52,24 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch"
-    }
-  }
+      width: "20ch",
+    },
+  },
 }));
-const handleSearchChange = (event) => {
-  console.log("Performing search for:", searchTerm);
-};
+
 const Nav = () => {
   const {
-    dashBoard,
-    setDashBoard,
-    filteredJobs,
     logout,
     isLoggedIn,
     userPersonal,
     searchTerm,
-    setSearchTerm
+    setSearchTerm,
   } = useContext(userContext);
+
+  const handleSearchChange = (event) => {
+    console.log("Performing search for:", event.target.value);
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <>
@@ -89,7 +95,7 @@ const Nav = () => {
                 placeholder="Search"
                 inputProps={{ "aria-label": "search" }}
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange}
               />
             </Search>
 
