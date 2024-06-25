@@ -88,20 +88,19 @@ const Login = () => {
             required
           />
         </div>
-        <GoogleOAuthProvider
-          clientId="308002675488-atob5tp4gc8ialafed71dh26sdqmh2ur.apps.googleusercontent.com"
-        >
+        <GoogleOAuthProvider clientId="308002675488-atob5tp4gc8ialafed71dh26sdqmh2ur.apps.googleusercontent.com">
           <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
             onError={handleGoogleLoginError}
           />
         </GoogleOAuthProvider>
         <button
-          type="submit"
+          type="button"
           className="btn btn-primary"
           onClick={() => {
             setEmail("guest@gmail.com");
             setPassword("123");
+            handleFormSubmit();
           }}
         >
           Try Website

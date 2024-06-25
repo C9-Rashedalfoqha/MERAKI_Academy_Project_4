@@ -10,7 +10,7 @@ import {
 import { AiFillHome } from "react-icons/ai";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
-import { FaMessage } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { userContext } from "../../App";
 import { styled, alpha } from "@mui/material/styles";
