@@ -50,7 +50,9 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
     }
   }
 }));
-
+const handleSearchChange = (event) => {
+  console.log("Performing search for:", searchTerm);
+};
 const Nav = () => {
   const {
     dashBoard,
@@ -58,71 +60,77 @@ const Nav = () => {
     filteredJobs,
     logout,
     isLoggedIn,
-    userPersonal
+    userPersonal,
+    searchTerm,
+    setSearchTerm
   } = useContext(userContext);
-const [searchTerm, setSearchTerm] = useState("")
+
   return (
-    <AppBar position="static" color="inherit" className="marg">
-      <Toolbar>
-        <img
-          src="https://i.ibb.co/tDmLH5H/logo.png"
-          alt="Logo"
-          className="logo"
-        />
+    <>
+      {isLoggedIn && (
+        <AppBar position="static" color="inherit" className="marg">
+          <Toolbar>
+            <img
+              src="https://i.ibb.co/tDmLH5H/logo.png"
+              alt="Logo"
+              className="logo"
+            />
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/" className="nav-link">
-            <AiFillHome className="home" />
-          </Link>
-        </Typography>
-        <Search>
-          <SearchIconWrapper>
-            <CiSearch />
-          </SearchIconWrapper>
-          <SearchInput
-            placeholder="Search"
-            inputProps={{ "aria-label": "search" }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Search>
-
-        <Button color="inherit" to="/newJob"></Button>
-        <Button color="inherit">
-          <Link to="about">
-            <PiWarningCircleFill className="con" />
-          </Link>
-        </Button>
-        <Button color="inherit">
-          <Link to="/job">
-            <FaMessage className="con" />
-          </Link>
-        </Button>
-        <Button color="inherit">
-          <Link to="/login">
-            {userPersonal.photo ? (
-              <img
-                src={userPersonal.photo}
-                className="rounded-circle mr-2"
-                width="20"
-                height="20"
-                alt="User"
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Link to="/" className="nav-link">
+                <AiFillHome className="home" />
+              </Link>
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <CiSearch />
+              </SearchIconWrapper>
+              <SearchInput
+                placeholder="Search"
+                inputProps={{ "aria-label": "search" }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
-            ) : (
-              <IoIosContact className="con" />
-            )}
-          </Link>
-        </Button>
-        <Button
-          onClick={() => {
-            logout();
-          }}
-        >
-          {" "}
-          <RiLogoutCircleRLine />
-        </Button>
-      </Toolbar>
-    </AppBar>
+            </Search>
+
+            <Button color="inherit" to="/newJob"></Button>
+            <Button color="inherit">
+              <Link to="about">
+                <PiWarningCircleFill className="con" />
+              </Link>
+            </Button>
+            <Button color="inherit">
+              <Link to="/job">
+                <FaMessage className="con" />
+              </Link>
+            </Button>
+            <Button color="inherit">
+              <Link to="/login">
+                {userPersonal.photo ? (
+                  <img
+                    src={userPersonal.photo}
+                    className="rounded-circle mr-2"
+                    width="20"
+                    height="20"
+                    alt="User"
+                  />
+                ) : (
+                  <IoIosContact className="con" />
+                )}
+              </Link>
+            </Button>
+            <Button
+              onClick={() => {
+                logout();
+              }}
+            >
+              {" "}
+              <RiLogoutCircleRLine />
+            </Button>
+          </Toolbar>
+        </AppBar>
+      )}
+    </>
   );
 };
 
