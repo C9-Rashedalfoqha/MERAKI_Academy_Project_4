@@ -94,7 +94,7 @@ const Login = () => {
             onError={handleGoogleLoginError}
           />
         </GoogleOAuthProvider>
-        <button
+        {/* <button
           type="button"
           className="btn btn-primary"
           onClick={() => {
@@ -104,7 +104,7 @@ const Login = () => {
           }}
         >
           Try Website
-        </button>
+        </button> */}
         <div className="mb-3">
           <Link to="/register">Register</Link>
         </div>
