@@ -28,6 +28,10 @@ const Login = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    loginUser(email, password);
+  };
+
+  const loginUser = (email, password) => {
     axios
       .post("https://ra-job.onrender.com/register/login", {
         Email: email,
@@ -49,6 +53,12 @@ const Login = () => {
       .catch(() => {
         setError("Login failed. Please check your email or password.");
       });
+  };
+
+  const handleGuestLogin = () => {
+    const guestEmail = "guest@gmail.com";
+    const guestPassword = "123";
+    loginUser(guestEmail, guestPassword);
   };
 
   return (
@@ -94,21 +104,17 @@ const Login = () => {
             onError={handleGoogleLoginError}
           />
         </GoogleOAuthProvider>
-        {/* <button
+        <button
           type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            setEmail("guest@gmail.com");
-            setPassword("123");
-            handleFormSubmit();
-          }}
+          className="btn btn-secondary mt-3"
+          onClick={handleGuestLogin}
         >
-          Try Website
-        </button> */}
-        <div className="mb-3">
+          Guest Login
+        </button>
+        <div className="mt-3">
           <Link to="/register">Register</Link>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-3">
           Submit
         </button>
       </form>
