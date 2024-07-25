@@ -15,6 +15,8 @@ const Personal = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [userPosts, setUserPosts] = useState([]);
+  const [jobDetail, setJobDetail] = useState(null);
+
   const {
     userPersonal,
     setUserPersonal,

@@ -11,7 +11,7 @@ const JobDetails = () => {
   const { JobDetail, token, userPersonal, setUserPersonal } =
     useContext(userContext);
   const { id } = useParams();
-  const [jobDetails, setJobDetails] = useState("");
+  const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
   const [Apply, setApply] = useState(false);
