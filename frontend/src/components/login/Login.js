@@ -57,7 +57,7 @@ const Login = () => {
 
   const handleGuestLogin = () => {
     const guestEmail = "guest@gmail.com";
-    const guestPassword = "123";
+    const guestPassword = "hashed_guest_password";
     loginUser(guestEmail, guestPassword);
   };
 
